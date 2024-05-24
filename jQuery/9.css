@@ -1,0 +1,7 @@
+div.anyBox {
+  width: 100px;
+  height: 100px;
+  background-color: lightblue;
+  position: absolute;
+  font-size: 1rem;
+} 
