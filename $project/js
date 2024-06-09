@@ -1,0 +1,32 @@
+$(document).ready(function() {
+	$("#insert").on("click", function () {
+		if($("#cust_nm").val().trim() == "") {
+			alert("이름은 필수입력 항목입니다.");
+			$("#cust_nm").focus();
+		} else if ($("#pridtf_no").val().trim() == "") {
+			alert("주민번호는 필수입력 항목입니다.");
+			$("#pridtf_no").focus();
+		} else if ($("#eml_addr").val().trim() == "") {
+			alert("이메일은 필수입력 항목입니다.");
+			$("#eml_addr").focus();
+		} else if ($("#bml_telno").val().trim() == "") {
+			alert("휴대폰번호는 필수입력 항목입니다.");
+			$("#bml_telno").focus();
+		} else if ($("#cr_nm").val().trim() == "") {
+			alert("직업은 필수입력 항목입니다.");
+			$("#cr_nm").focus();
+		
+		} else {
+			$("#frm").submit();
+		}
+	});
+	
+	 $("#view").click(function() {
+	        location.href = "/aaa/custList";
+	});
+});
+
+
+
+// insert, update에 쓰는 js 입니다 !! 
+// alert 는 신규고객 입력했을 때만 뜨는데 수정할 때도 필요할까요..? 말해주세용 ,,
