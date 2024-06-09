@@ -1,0 +1,42 @@
+package kr.co.aaa.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sun.org.apache.regexp.internal.recompile;
+
+import kr.co.aaa.dto.ConsultDto;
+import kr.co.aaa.mapper.ConsultMapper;
+
+@Service
+public class ConsultService {
+
+	@Autowired
+	ConsultMapper mapper;
+	
+	public List<ConsultDto> getCustList() {
+		return mapper.getCustList();
+	} // 고객 리스트
+
+	
+	public ConsultDto selectId(Long cust_sn) {
+		return mapper.selectId(cust_sn);
+	} // 특정 고객 조회
+
+	
+	public void update(ConsultDto consultDto) {
+		mapper.update(consultDto);
+	} // 특정 고객 정보 수정
+	
+	public void insert(ConsultDto consultDto) {
+		mapper.insert(consultDto);
+	} // 신규 고객 입력
+	
+
+    public void delete(Long cust_sn) {
+        mapper.delete(cust_sn);
+    } // 삭제
+
+}
