@@ -1,0 +1,60 @@
+package kr.co.aaa.controller;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import kr.co.aaa.dto.ConsultDto;
+import kr.co.aaa.service.ConsultService;
+
+@Controller
+public class ConsultController {
+	
+	@Autowired
+	ConsultService consultService;
+	
+
+    @GetMapping("/custList") // 고객 리스트
+    public String custList(Model model) {
+        List<ConsultDto> customerList = consultService.getCustList();
+        model.addAttribute("customerList", customerList);
+        return "cust-list";
+    }
+
+    @GetMapping("/custForm") // 특정 고객 정보 보이기
+    public String custForm(@RequestParam("cust_sn") Long cust_sn, Model model) {
+        ConsultDto consultDto = consultService.selectId(cust_sn);
+        model.addAttribute("consultDto", consultDto);
+        model.addAttribute("currentDate", LocalDate.now());
+        return "/cust-form";
+    }
+
+    @PostMapping("/custForm") // 고객 정보 수정
+    public String update(@RequestParam("cust_sn") Long cust_sn,ConsultDto consultDto) {
+        
+    	consultDto.setCUST_SN(cust_sn);
+    	consultService.update(consultDto);
+        return "redirect:/custList";
+    }
+
+    @PostMapping("/delete") // 고객 삭제하기 
+    public String deleteCustomer(@RequestParam Long cust_sn) {
+        consultService.delete(cust_sn);
+        return "redirect:/custList";
+    }
+
+    @PostMapping("/new") // 신규 고객 입력
+    public String newCustomer(ConsultDto consultDto, Model model) {
+    	consultService.insert(consultDto);
+        model.addAttribute("currentDate", LocalDate.now());
+    	return "/insert";
+    }
+
+}
