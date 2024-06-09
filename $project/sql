@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.aaa.mapper.ConsultMapper">
+
+
+    <!-- 사용 여부가 Y인 고객리스트 -->
+    <select id="getCustList" resultType="consultDto">
+        SELECT * FROM kdt_cust_info_basc 
+        WHERE use_yn = 'Y'
+    </select>
+    
+    
+    
+    <!-- 특정 고객 정보 조회 -->
+    <select id="selectId" parameterType="Long" resultType="consultDto">
+        SELECT * FROM kdt_cust_info_basc
+        WHERE cust_sn = #{cust_sn}
+    </select>
+    
+    
+    
+    <!-- 특정 고객 정보 수정 -->
+    <update id="update" parameterType="consultDto">
+        UPDATE kdt_cust_info_basc
+        SET cust_nm = #{cust_nm}, eml_addr = #{eml_addr}, home_telno = #{home_telno}, mbl_telno = #{mbl_telno},
+        cr_nm = #{cr_nm}, road_nm_addr = #{road_nm_addr}, last_mdfcn_dt = #{last_mdfcn_dt}
+        WHERE cust_sn = #{cust_sn}
+    </update>
+    
+    
+    
+    <!-- 신규 고객 등록 -->
+    <insert id="insert" parameterType="consultDto">
+        INSERT INTO kdt_cust_info_basc(cust_nm, pridtf_no, eml_addr, home_telno, mbl_telno, cr_nm, road_nm_addr, frst_reg_dt)
+        VALUES (#{cust_nm}, #{pridtf_no}, #{eml_addr}, #{home_telno}, #{mbl_telno}, #{cr_nm}, #{road_nm_addr}, #{frst_reg_dt})
+    </insert>
+    
+    
+    
+    <!-- 고객 정보 삭제 (사용여부 y->n) -->
+    <update id="delete" parameterType="Long">
+        UPDATE kdt_cust_info_basc
+        SET use_yn = 'N'
+        WHERE cust_sn = #{cust_sn}
+    </update>
+    
+    
+    
+</mapper>
